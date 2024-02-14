@@ -9,7 +9,7 @@ const start = async () => {
     return result
 }
 
-const character = async () => {
+export default async function character(){
     let {result} = await inquirer.prompt({
         name: "result",
         type: "input",
@@ -28,10 +28,9 @@ const difficulty = async () =>{
     return result
 }
 
+// const display = async () => {
+//     let started = await start()
+//     console.log(started)
+// }
 
-const display = async () => {
-    let started = await start()
-    console.log(started)
-}
-
-display()
+// display()

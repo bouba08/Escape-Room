@@ -1,5 +1,5 @@
 import inquirer from 'inquirer'
-import {character} from "./character.js"
+import character from "./character.js"
 
 
 let doors = ["door1", "door2", "door3"]
