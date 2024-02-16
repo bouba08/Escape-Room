@@ -1,11 +1,14 @@
 import inquirer from 'inquirer'
 import character from "./inquirer.js"
+import * as emoji from 'node-emoji'
 
+let heart = emoji.get('heart')
+let ghost = emoji.get('ghost')
 
 export class Mycharacter {
   constructor(name) {
     this.name = name;
-    this.life = ['❤️','❤️','❤️'];
+    this.life = [heart,heart,heart];
     this.wrong = false;
   }
 
@@ -14,18 +17,16 @@ export class Mycharacter {
     if (this.wrong) {
         this.life.splice(-1)
         }
-    return this.life
+    return `You found a ${ghost} in that dooor => ${this.life}`
   }
   gameOver(){
-    if (!this.life){
+    if (!this.life.length){
         return "Game over"
+    } else{
+      return ""
     }
   } 
 }
-
-
-
-// console.log(next.wrongGuess(),next.wrongGuess(),next.wrongGuess(), next.gameOver())
 
 const display = async () => {
     let started = await character()
@@ -36,4 +37,6 @@ let name = await display()
 
 let next = new Mycharacter(name)
 
-console.log(next.wrongGuess())
+
+// console.log(next.wrongGuess(),next.wrongGuess(),next.wrongGuess(),next.gameOver())
+
