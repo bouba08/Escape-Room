@@ -1,26 +1,17 @@
 import inquirer from 'inquirer'
-import {easyGame} from './easy.js'
-import { Mycharacter } from './class.js'
+import chalk from 'chalk';
 
-// const start = async () => {
-//     let {result} = await inquirer.prompt({
-//         name: "result",
-//         type: "confirm",
-//         message: "Do you want to start Escape Room?"
-//     })
-//     return result
-// }
 
-export default async function character(){
+export default async function chosenCharacter(){
     let {result} = await inquirer.prompt({
         name: "result",
         type: "input",
         message: "Name your character"
     })
-    return result
+    return chalk.blue(result)
 }
 
-const difficulty = async () =>{
+export const difficulty = async () =>{
     let {result} = await inquirer.prompt({
         name:"result",
         type:"list",
@@ -30,13 +21,3 @@ const difficulty = async () =>{
     return result
 }
 
-const display = async () => {    
-    let difficult = await difficulty()
-    let chosenChara = await character()
-    let name = new Mycharacter(chosenChara) 
-    if (difficult === "Easy"){
-        return easyGame(name, name.wrongGuess())
-    }
-}
-
-display()

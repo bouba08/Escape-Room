@@ -1,51 +1,40 @@
-import inquirer from 'inquirer'
-import * as emoji from 'node-emoji'
+import inquirer from 'inquirer';
+import { Mycharacter } from './class.js';
+import * as emoji from 'node-emoji';
 
-let door = emoji.get("door")
+let door = emoji.get("door");
+let doors = [door, door, door];
+let heart = emoji.get('heart');
+let hearts = [heart, heart, heart];
 
-let doors = [door, door, door]
+export const easyGame = async (name) => {
+    let character = new Mycharacter(name, hearts);
 
+    for (let i = 0; i < 5; i++) {
+        let { result } = await inquirer.prompt({
+            name: "result",
+            type: "list",
+            message: "Select door:",
+            choices: doors,
+        });
 
-const instruction = () => {
-    return "" 
-}
+        character.round += 1;
+
+        if (doors.indexOf(result) === randomDoor()) {
+            console.log(character.round, character.rightGuess(), character.wonGame(character.round, 5));
+        } else {
+            console.log(character.round, character.wrongGuess(), character.wonGame(character.round, 5), character.gameOver());
+            if (character.gameOver()) {
+                break; 
+            }
+            if (character.round === 5 && (character.wrongGuess() === true)){
+                console.log(character.gameOver())
+            }
+
+        }
+    }
+};
 
 const randomDoor = () => {
-    return Math.floor(Math.random() * 3)
-}
-
-export const easyGame = async (wrong, name) =>{
-    for (let i = 0; i < 5; i++){
-    let {result} = await inquirer.prompt({
-        name:"result",
-        type:"list",
-        message:"Select door",
-        choices: doors,
-    })    
-    if ( doors.indexOf(result) === randomDoor()){
-        console.log(`Well done ${name}, you found right door`)
-    } else {
-        console.log(wrong)
-        let {result} = await inquirer.prompt({
-            name:"result",
-            type:"list",
-            message:"Select door",
-            choices: doors,
-    })
-}
-}
-}
-
-// const display = async () => {
-//     let instruct = instruction() 
-//     name = await character()
-//     let oj = new Mycharacter(name)
-//     let started = await game()
-//     console.log(oj.name)
-// }
-
-
-// // console.log(game())
-
-// console.log(easyGame())
-
+    return Math.floor(Math.random() * 3);
+};
